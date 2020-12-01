@@ -27,9 +27,11 @@ set.Add([]byte(`some key`))
 set.Add([]byte(`another key`))
 ```
 
-`Contain` function return if a key is in the set
-if true, the key must be in the set
-if false, the key might not in the set
+`Contain` function return if a key is in the set.
+
+if true, the key must be in the set.
+
+if false, the key might not in the set.
 ```go
 setContain([]byte(`some key`)) //true
 setContain([]byte(`another key`)) //false
