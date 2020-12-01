@@ -124,3 +124,14 @@ func TestRecentFalseNegative(t *testing.T) {
         testRecentFalseNegative(10000, 2000, 5)
         testRecentFalseNegative(3000000, 100000, 30)
 }
+
+func BenchmarkAdd(b *testing.B) {
+        set := oppbloom.New(100000)
+        rand.Seed(time.Now().UnixNano())
+
+        key := make([]byte, 16)
+        for i := 0; i < b.N; i++ {
+                rand.Read(key)
+                set.Add(key)
+        }
+}
