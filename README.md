@@ -21,12 +21,14 @@ import "github.com/HoMuChen/opp-bloom"
 set := oppbloom.New(1000000)
 ```
 
+### Add
 `Add` function add a key into the set
 ```go
 set.Add([]byte(`some key`))
 set.Add([]byte(`another key`))
 ```
 
+### Contain
 `Contain` function return if a key is in the set.
 
 if true, the key must be in the set.
