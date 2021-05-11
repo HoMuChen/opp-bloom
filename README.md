@@ -35,7 +35,7 @@ if true, the key must be in the set.
 
 if false, the key might not in the set.
 ```go
-setContain([]byte(`some key`)) //true
-setContain([]byte(`another key`)) //false
+set.Contain([]byte(`some key`)) //true
+set.Contain([]byte(`another key`)) //false
 
 ```
