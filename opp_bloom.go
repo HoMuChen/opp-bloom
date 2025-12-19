@@ -5,7 +5,7 @@ import (
 )
 
 type OppBloom struct {
-        size    int
+        size    uint64
         array   [][]byte
         hasher  Hasher
 }
@@ -19,10 +19,14 @@ func WithHasher(hasher Hasher) Option {
 }
 
 func New(size int, options ...Option) *OppBloom {
+        if size <= 0 {
+                panic("oppbloom: size must be greater than 0")
+        }
+
         oppbloom := &OppBloom{
-                size:   size,
+                size:   uint64(size),
                 array:  make([][]byte, size),
-                hasher: FNVHasher{},
+                hasher: &FNVHasher{},
         }
 
         for _, option := range options {
@@ -33,13 +37,13 @@ func New(size int, options ...Option) *OppBloom {
 }
 
 func (this *OppBloom) Add(key []byte) {
-        index := this.hasher.Sum64(key) % uint64(this.size)
+        index := this.hasher.Sum64(key) % this.size
 
-        this.array[index] = key
+        this.array[index] = append([]byte(nil), key...)
 }
 
 func (this *OppBloom) Contain(key []byte) bool {
-        index := this.hasher.Sum64(key) % uint64(this.size)
+        index := this.hasher.Sum64(key) % this.size
 
         if k := this.array[index]; k != nil && bytes.Equal(k, key) {
                 return true
@@ -49,5 +53,5 @@ func (this *OppBloom) Contain(key []byte) bool {
 }
 
 func (this *OppBloom) Cap() int {
-        return this.size
+        return int(this.size)
 }

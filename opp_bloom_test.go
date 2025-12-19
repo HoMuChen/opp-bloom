@@ -20,7 +20,7 @@ func TestInit(t *testing.T) {
 func TestAddAndContain(t *testing.T) {
         set := oppbloom.New(
                 1000,
-                oppbloom.WithHasher(oppbloom.FNVHasher{}),
+                oppbloom.WithHasher(&oppbloom.FNVHasher{}),
         )
 
         set.Add([]byte(`1`))
